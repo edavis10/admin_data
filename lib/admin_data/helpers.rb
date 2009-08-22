@@ -64,7 +64,11 @@ module AdminData::Helpers
       else
          value = source.send(column.name)
          return value if options[:limit].blank?
-         truncate(value,:length => options[:limit]) if column.type == :string || column.type == :text
+
+        ## Bombing on the 2-3-stable branch of Rails
+        ## undefined method `mb_chars' for []:Array
+        # truncate(value,:length => options[:limit]) if column.type == :string || column.type == :text
+        value
       end
    end
 
